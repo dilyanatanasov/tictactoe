@@ -1,0 +1,264 @@
+let options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+let marker = true;
+let initRobot = true;
+let userStarts = true;
+let userWins = 0;
+let robotWins = 0;
+
+const showSymbol = (symbol, elementId) => {
+    document.getElementById(elementId).innerHTML = symbol;
+    options = options.filter(element => element !== elementId);
+    marker = (!marker);
+};
+
+const isAvailableOption = (option) => {
+    return (options.includes(option) && document.getElementById(option).innerText === "");
+};
+
+const haveIWon = () => {
+    const x1 = document.getElementById("1").innerText;
+    const x2 = document.getElementById("2").innerText;
+    const x3 = document.getElementById("3").innerText;
+    const x4 = document.getElementById("4").innerText;
+    const x5 = document.getElementById("5").innerText;
+    const x6 = document.getElementById("6").innerText;
+    const x7 = document.getElementById("7").innerText;
+    const x8 = document.getElementById("8").innerText;
+    const x9 = document.getElementById("9").innerText;
+
+    let win = false;
+    if (x1 !== "" && x1 === x2 && x2 === x3) {
+        win = true;
+    } else if (x4 !== "" && x4 === x5 && x5 === x6) {
+        win = true;
+    } else if (x7 !== "" && x7 === x8 && x8 === x9) {
+        win = true;
+    } else if (x1 !== "" && x1 === x4 && x4 === x7) {
+        win = true;
+    } else if (x2 !== "" && x2 === x5 && x5 === x8) {
+        win = true;
+    } else if (x3 !== "" && x3 === x6 && x6 === x9) {
+        win = true;
+    } else if (x1 !== "" && x1 === x5 && x5 === x9) {
+        win = true;
+    } else if (x3 !== "" && x3 === x5 && x5 === x7) {
+        win = true;
+    }
+
+    return win;
+};
+
+const findBestSpot = () => {
+    const x1 = (document.getElementById("1").innerText) ? document.getElementById("1").innerText : "";
+    const x2 = (document.getElementById("2").innerText) ? document.getElementById("2").innerText : "";
+    const x3 = (document.getElementById("3").innerText) ? document.getElementById("3").innerText : "";
+    const x4 = (document.getElementById("4").innerText) ? document.getElementById("4").innerText : "";
+    const x5 = (document.getElementById("5").innerText) ? document.getElementById("5").innerText : "";
+    const x6 = (document.getElementById("6").innerText) ? document.getElementById("6").innerText : "";
+    const x7 = (document.getElementById("7").innerText) ? document.getElementById("7").innerText : "";
+    const x8 = (document.getElementById("8").innerText) ? document.getElementById("8").innerText : "";
+    const x9 = (document.getElementById("9").innerText) ? document.getElementById("9").innerText : "";
+
+    const optionsForDefend = [
+        {"1": x1, "2": x2, "3": x3},
+        {"4": x4, "5": x5, "7": x6},
+        {"7": x7, "8": x8, "9": x9},
+        {"1": x1, "4": x4, "7": x7},
+        {"2": x2, "5": x5, "8": x8},
+        {"3": x3, "6": x6, "9": x9},
+        {"1": x1, "5": x5, "9": x9},
+        {"3": x3, "5": x5, "7": x7}
+    ];
+    const optionsForAttack = [
+        {"1": x1, "2": x2, "3": x3},
+        {"4": x4, "5": x5, "7": x6},
+        {"7": x7, "8": x8, "9": x9},
+        {"1": x1, "4": x4, "7": x7},
+        {"2": x2, "5": x5, "8": x8},
+        {"3": x3, "6": x6, "9": x9},
+        {"1": x1, "5": x5, "9": x9},
+        {"3": x3, "5": x5, "7": x7}
+    ];
+
+    for (let row of optionsForDefend) {
+        Object.entries(row).map((element) => {
+            if (element[1] === "x") {
+                delete row[element[0]];
+            }
+        })
+    }
+
+    const positionForDefend = optionsForDefend.filter((element) => {
+        if (Object.keys(element).length === 1 && Object.values(element)[0] === "") {
+            return Object.keys(element);
+        }
+    });
+
+    for (let row of optionsForAttack) {
+        Object.entries(row).map((element) => {
+            if (element[1] === "o") {
+                delete row[element[0]];
+            }
+        })
+    }
+
+    const positionForAttack = optionsForAttack.filter((element) => {
+        if (Object.keys(element).length === 1 && Object.values(element)[0] === "") {
+            return Object.keys(element);
+        }
+    });
+
+    if (positionForAttack.length > 0 && Object.keys(positionForAttack[0]) > 0) {
+        return Object.keys(positionForAttack[0])[0];
+    } else if (positionForDefend.length > 0 && Object.keys(positionForDefend[0]) > 0) {
+        return Object.keys(positionForDefend[0])[0];
+    } else {
+        return false;
+    }
+};
+
+const findIfWon = (playerSymbol) => {
+    const x1 = (document.getElementById("1").innerText) ? document.getElementById("1").innerText : "";
+    const x2 = (document.getElementById("2").innerText) ? document.getElementById("2").innerText : "";
+    const x3 = (document.getElementById("3").innerText) ? document.getElementById("3").innerText : "";
+    const x4 = (document.getElementById("4").innerText) ? document.getElementById("4").innerText : "";
+    const x5 = (document.getElementById("5").innerText) ? document.getElementById("5").innerText : "";
+    const x6 = (document.getElementById("6").innerText) ? document.getElementById("6").innerText : "";
+    const x7 = (document.getElementById("7").innerText) ? document.getElementById("7").innerText : "";
+    const x8 = (document.getElementById("8").innerText) ? document.getElementById("8").innerText : "";
+    const x9 = (document.getElementById("9").innerText) ? document.getElementById("9").innerText : "";
+    const array = [
+        {"1": x1, "2": x2, "3": x3},
+        {"4": x4, "5": x5, "7": x6},
+        {"7": x7, "8": x8, "9": x9},
+        {"1": x1, "4": x4, "7": x7},
+        {"2": x2, "5": x5, "8": x8},
+        {"3": x3, "6": x6, "9": x9},
+        {"1": x1, "5": x5, "9": x9},
+        {"3": x3, "5": x5, "7": x7}
+    ];
+
+    for (let row of array) {
+        Object.entries(row).map((element) => {
+            if (element[1] === playerSymbol) {
+                delete row[element[0]];
+            }
+        })
+    }
+
+    const threes = array.filter((element) => {
+        if (Object.keys(element).length === 0) {
+            return Object.keys(element);
+        }
+    });
+    return (threes.length > 0);
+};
+
+const win = (winner) => {
+    document.getElementById("message").innerText = winner;
+    document.getElementById("finish").classList.remove("isHidden");
+    document.getElementById("finish").classList.add("finish");
+    blockClicks();
+};
+
+const blockClicks = () => {
+    for (let i = 1; i < 10; i++) {
+        document.getElementById(i.toString()).onclick = () => {
+        };
+    }
+};
+
+const reset = () => {
+    for (let i = 1; i < 10; i++) {
+        document.getElementById(i.toString()).innerText = "";
+    }
+    document.getElementById("finish").classList.remove("finish");
+    document.getElementById("finish").classList.add("isHidden");
+    options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    marker = true;
+    initRobot = true;
+    play();
+};
+
+const pickPosition = () => {
+    if (initRobot) {
+        initRobot = false;
+        return getRandomOption();
+    } else {
+        const robotPick = findBestSpot();
+        if (!hasPicked(robotPick) || !isAvailableOption(robotPick)) {
+            return getRandomOption();
+        }
+
+        return robotPick
+    }
+};
+
+const hasPicked = (robotPick) => {
+    return robotPick
+};
+
+const getRandomOption = () => {
+    while (true) {
+        const randomOption = Math.floor(Math.random() * 10).toString();
+        if (isAvailableOption(randomOption)) {
+            return randomOption;
+        }
+    }
+};
+
+const robot = () => {
+    const robotPick = pickPosition();
+
+    setTimeout(() => {
+        showSymbol("o", robotPick);
+
+        if (haveIWon()) {
+            robotWins++;
+            document.getElementById("robot").innerText = `ROBOT ${robotWins}`;
+            win("Robot won!");
+        }
+    }, 1000);
+};
+
+const play = () => {
+    if (userStarts === false) {
+        marker = false;
+        robot();
+    }
+
+    for (let option of options) {
+        document.getElementById(option).onclick = (() => {
+            if (document.getElementById(option).innerText !== "") return;
+
+            showSymbol("x", option);
+
+            if (!marker && options.length > 0 && !haveIWon()) {
+                robot();
+            } else {
+                if (findIfWon("x")) {
+                    userWins++;
+                    document.getElementById("user").innerText = `${userWins} USER`;
+                    win("User won!");
+                } else if (findIfWon("o")) {
+                    robotWins++;
+                    document.getElementById("robot").innerText = `ROBOT ${robotWins}`;
+                    win("Robot won!")
+                } else {
+                    win("It's a draw!");
+                }
+            }
+        });
+    }
+    document.getElementById("reset").onclick = () => reset();
+};
+
+(() => {
+    document.getElementById("toggle_checkbox").onclick = () => {
+        userStarts = !userStarts;
+    };
+    document.getElementById("begin").onclick = () => {
+        document.getElementById("start").classList.add("isHidden");
+        play();
+    }
+})();
