@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shah</title>
+</head>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        font-family: Ariel, sans-serif;
+        justify-content: center;
+        background-color: coral;
+    }
+
+    .box {
+        display: flex;
+        margin: 0 auto;
+        margin-top: 15%;
+        flex-direction: column;
+    }
+
+    .finish {
+        display: flex;
+        border: none;
+        text-align: center;
+        margin: 0 auto;
+        flex-direction: column;
+    }
+
+    .finish button {
+        border: none;
+        border-radius: 5px;
+        background-color: aquamarine;
+        font-size: 20px;
+        padding: 5px;
+    }
+
+    .finish button:hover {
+        background-color: #4DFFE6;
+        cursor: pointer;
+    }
+
+    .isHidden {
+        display: none;
+    }
+
+    div {
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;
+        width: 300px;
+    }
+
+    li {
+        background-color: wheat;
+        list-style: none;
+        border: 2px solid black;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        font-size: 50px;
+        justify-content: center;
+        justify-items: center;
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div class="box">
+        <div>
+            <li id="1"></li>
+            <li id="2"></li>
+            <li id="3"></li>
+        </div>
+        <div>
+            <li id="4"></li>
+            <li id="5"></li>
+            <li id="6"></li>
+        </div>
+        <div>
+            <li id="7"></li>
+            <li id="8"></li>
+            <li id="9"></li>
+        </div>
+    </div>
+    <div id="finish" class="isHidden">
+        <h1 id="message">You win</h1>
+        <button id="reset">Reset</button>
+    </div>
+</body>
+</html>
+
+<script>
+    let options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    let marker = true;
+
+    const showSymbol = (symbol, elementId) => {
+        document.getElementById(elementId).innerHTML = symbol;
+        options = options.filter(element => element !== elementId);
+        marker = (!marker);
+    };
+
+    const isAvailableOption = (option) => {
+        return (options.includes(option) && document.getElementById(option).innerText === "");
+    };
+
+    const haveIWon = () => {
+        const x1 = document.getElementById("1").innerText;
+        const x2 = document.getElementById("2").innerText;
+        const x3 = document.getElementById("3").innerText;
+        const x4 = document.getElementById("4").innerText;
+        const x5 = document.getElementById("5").innerText;
+        const x6 = document.getElementById("6").innerText;
+        const x7 = document.getElementById("7").innerText;
+        const x8 = document.getElementById("8").innerText;
+        const x9 = document.getElementById("9").innerText;
+
+        let win = false;
+        if (x1 !== "" && x1 === x2 && x2 === x3) {
+            win = true;
+        } else if (x4 !== "" && x4 === x5 && x5 === x6) {
+            win = true;
+        } else if (x7 !== "" && x7 === x8 && x8 === x9) {
+            win = true;
+        } else if (x1 !== "" && x1 === x4 && x4 === x7) {
+            win = true;
+        } else if (x2 !== "" && x2 === x5 && x5 === x8) {
+            win = true;
+        } else if (x3 !== "" && x3 === x6 && x6 === x9) {
+            win = true;
+        } else if (x1 !== "" && x1 === x5 && x5 === x9) {
+            win = true;
+        } else if (x3 !== "" && x3 === x5 && x5 === x7) {
+            win = true;
+        }
+
+        return win;
+    };
+
+    const win = (winner) => {
+        document.getElementById("message").innerText = `${winner} won!`;
+        document.getElementById("finish").classList.remove("isHidden");
+        document.getElementById("finish").classList.add("finish");
+        blockClicks();
+    };
+
+    const blockClicks = () => {
+        for (let i = 1; i < 10; i++) {
+            document.getElementById(i.toString()).onclick = () => {};
+        }
+    };
+
+    const reset = () => {
+        for (let i = 1; i < 10; i++) {
+            document.getElementById(i.toString()).innerText = "";
+        }
+        document.getElementById("finish").classList.remove("finish");
+        document.getElementById("finish").classList.add("isHidden");
+        options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+        marker = true;
+    };
+
+    const robot = () => {
+        let numberIsPicked = true;
+        let robotPick = "";
+        while (numberIsPicked) {
+            const randomOption = Math.floor(Math.random() * 10).toString();
+            if (isAvailableOption(randomOption)) {
+                numberIsPicked = false;
+                robotPick = randomOption;
+
+                setTimeout(() => {
+                    showSymbol("o", robotPick);
+
+                    if (haveIWon()) {
+                        win("Robot");
+                    }
+                }, 2000);
+            }
+        }
+    };
+
+    const play = () => {
+        for (let option of options) {
+            document.getElementById(option).onclick = (() => {
+                showSymbol("x", option);
+
+                if (!marker && options.length > 0 && !haveIWon()) {
+                    robot();
+                } else {
+                    win("User");
+                }
+            });
+        }
+
+        document.getElementById("reset").onclick = () => reset();
+    };
+    play();
+</script>
