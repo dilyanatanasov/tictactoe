@@ -1,7 +1,7 @@
 #Simple Tic Tac Toe
 
 Used:
-- valina js
+- vanilla js
 - css
 - html
 
