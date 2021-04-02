@@ -280,21 +280,18 @@
     const play = () => {
         for (let option of options) {
             document.getElementById(option).onclick = (() => {
+                if (document.getElementById(option).innerText !== "") return;
+
                 showSymbol("x", option);
 
                 if (!marker && options.length > 0 && !haveIWon()) {
                     robot();
                 } else {
                     if (findIfWon("x")) {
-                        console.log("Inside x");
                         win("User won!");
                     } else if (findIfWon("o")) {
-
-                        console.log("Inside x");
                         win("Robot won!")
                     } else {
-
-                        console.log("Inside draw");
                         win("It's a draw!");
                     }
                 }
