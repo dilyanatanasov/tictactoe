@@ -64,6 +64,20 @@ const haveIWon = () => {
     return win;
 };
 
+const completed = () => {
+    return (
+        x1 !== "" &&
+        x2!== "" &&
+        x3 !== "" &&
+        x4 !== "" &&
+        x5 !== "" &&
+        x6 !== "" &&
+        x7 !== "" &&
+        x8 !== "" &&
+        x9 !== ""
+    )
+};
+
 const findBestSpot = () => {
     updateFieldSpots();
 
@@ -223,8 +237,26 @@ const robot = () => {
             win("Robot won!");
         }
 
+        if (completed()) {
+            finish();
+        }
+
         robotPicks = false;
     }, 1000);
+};
+
+const finish = () => {
+    if (findIfWon("x")) {
+        userWins++;
+        document.getElementById("user").innerText = `${userWins} USER`;
+        win("User won!");
+    } else if (findIfWon("o")) {
+        robotWins++;
+        document.getElementById("robot").innerText = `ROBOT ${robotWins}`;
+        win("Robot won!")
+    } else {
+        win("It's a draw!");
+    }
 };
 
 const play = () => {
@@ -245,17 +277,7 @@ const play = () => {
                 robotPicks = true;
                 robot();
             } else {
-                if (findIfWon("x")) {
-                    userWins++;
-                    document.getElementById("user").innerText = `${userWins} USER`;
-                    win("User won!");
-                } else if (findIfWon("o")) {
-                    robotWins++;
-                    document.getElementById("robot").innerText = `ROBOT ${robotWins}`;
-                    win("Robot won!")
-                } else {
-                    win("It's a draw!");
-                }
+                finish();
             }
         });
     }
