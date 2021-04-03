@@ -5,6 +5,16 @@ let userStarts = true;
 let userWins = 0;
 let robotWins = 0;
 
+let x1 = "";
+let x2 = "";
+let x3 = "";
+let x4 = "";
+let x5 = "";
+let x6 = "";
+let x7 = "";
+let x8 = "";
+let x9 = "";
+
 const showSymbol = (symbol, elementId) => {
     document.getElementById(elementId).innerHTML = symbol;
     options = options.filter(element => element !== elementId);
@@ -15,16 +25,20 @@ const isAvailableOption = (option) => {
     return (options.includes(option) && document.getElementById(option).innerText === "");
 };
 
+const updateFieldSpots = () => {
+    x1 = (document.getElementById("1").innerText) ? document.getElementById("1").innerText : "";
+    x2 = (document.getElementById("2").innerText) ? document.getElementById("2").innerText : "";
+    x3 = (document.getElementById("3").innerText) ? document.getElementById("3").innerText : "";
+    x4 = (document.getElementById("4").innerText) ? document.getElementById("4").innerText : "";
+    x5 = (document.getElementById("5").innerText) ? document.getElementById("5").innerText : "";
+    x6 = (document.getElementById("6").innerText) ? document.getElementById("6").innerText : "";
+    x7 = (document.getElementById("7").innerText) ? document.getElementById("7").innerText : "";
+    x8 = (document.getElementById("8").innerText) ? document.getElementById("8").innerText : "";
+    x9 = (document.getElementById("9").innerText) ? document.getElementById("9").innerText : "";
+};
+
 const haveIWon = () => {
-    const x1 = document.getElementById("1").innerText;
-    const x2 = document.getElementById("2").innerText;
-    const x3 = document.getElementById("3").innerText;
-    const x4 = document.getElementById("4").innerText;
-    const x5 = document.getElementById("5").innerText;
-    const x6 = document.getElementById("6").innerText;
-    const x7 = document.getElementById("7").innerText;
-    const x8 = document.getElementById("8").innerText;
-    const x9 = document.getElementById("9").innerText;
+    updateFieldSpots();
 
     let win = false;
     if (x1 !== "" && x1 === x2 && x2 === x3) {
@@ -49,15 +63,7 @@ const haveIWon = () => {
 };
 
 const findBestSpot = () => {
-    const x1 = (document.getElementById("1").innerText) ? document.getElementById("1").innerText : "";
-    const x2 = (document.getElementById("2").innerText) ? document.getElementById("2").innerText : "";
-    const x3 = (document.getElementById("3").innerText) ? document.getElementById("3").innerText : "";
-    const x4 = (document.getElementById("4").innerText) ? document.getElementById("4").innerText : "";
-    const x5 = (document.getElementById("5").innerText) ? document.getElementById("5").innerText : "";
-    const x6 = (document.getElementById("6").innerText) ? document.getElementById("6").innerText : "";
-    const x7 = (document.getElementById("7").innerText) ? document.getElementById("7").innerText : "";
-    const x8 = (document.getElementById("8").innerText) ? document.getElementById("8").innerText : "";
-    const x9 = (document.getElementById("9").innerText) ? document.getElementById("9").innerText : "";
+    updateFieldSpots();
 
     const optionsForDefend = [
         {"1": x1, "2": x2, "3": x3},
@@ -118,15 +124,7 @@ const findBestSpot = () => {
 };
 
 const findIfWon = (playerSymbol) => {
-    const x1 = (document.getElementById("1").innerText) ? document.getElementById("1").innerText : "";
-    const x2 = (document.getElementById("2").innerText) ? document.getElementById("2").innerText : "";
-    const x3 = (document.getElementById("3").innerText) ? document.getElementById("3").innerText : "";
-    const x4 = (document.getElementById("4").innerText) ? document.getElementById("4").innerText : "";
-    const x5 = (document.getElementById("5").innerText) ? document.getElementById("5").innerText : "";
-    const x6 = (document.getElementById("6").innerText) ? document.getElementById("6").innerText : "";
-    const x7 = (document.getElementById("7").innerText) ? document.getElementById("7").innerText : "";
-    const x8 = (document.getElementById("8").innerText) ? document.getElementById("8").innerText : "";
-    const x9 = (document.getElementById("9").innerText) ? document.getElementById("9").innerText : "";
+    updateFieldSpots();
     const array = [
         {"1": x1, "2": x2, "3": x3},
         {"4": x4, "5": x5, "7": x6},
