@@ -1,9 +1,11 @@
 let options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 let marker = true;
-let initRobot = true;
 let userStarts = true;
 let userWins = 0;
+
+let initRobot = true;
 let robotWins = 0;
+let robotPicks = false;
 
 let x1 = "";
 let x2 = "";
@@ -205,6 +207,10 @@ const getRandomOption = () => {
     }
 };
 
+const robotsTurn = () => {
+    return (!marker && options.length > 0 && !haveIWon());
+};
+
 const robot = () => {
     const robotPick = pickPosition();
 
@@ -216,6 +222,8 @@ const robot = () => {
             document.getElementById("robot").innerText = `ROBOT ${robotWins}`;
             win("Robot won!");
         }
+
+        robotPicks = false;
     }, 1000);
 };
 
@@ -228,10 +236,12 @@ const play = () => {
     for (let option of options) {
         document.getElementById(option).onclick = (() => {
             if (document.getElementById(option).innerText !== "") return;
+            if (robotPicks) return;
 
             showSymbol("x", option);
 
-            if (!marker && options.length > 0 && !haveIWon()) {
+            if (robotsTurn()) {
+                robotPicks = true;
                 robot();
             } else {
                 if (findIfWon("x")) {
