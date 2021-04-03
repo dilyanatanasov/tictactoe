@@ -230,6 +230,7 @@ const robot = () => {
 const play = () => {
     if (userStarts === false) {
         marker = false;
+        robotPicks = true;
         robot();
     }
 
