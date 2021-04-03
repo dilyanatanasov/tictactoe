@@ -36,11 +36,13 @@ body {
     font-weight: bold;
     padding: 5px;
     outline: none;
+    transition: background-color 0.3s ease-in;
 }
 
 .finish button:hover {
     background-color: #4DFFE6;
     cursor: pointer;
+    transition: background-color 0.3s ease-in;
 }
 
 #start {
@@ -63,11 +65,13 @@ body {
     font-weight: bold;
     padding: 5px;
     outline: none;
+    transition: background-color 0.3s ease-in;
 }
 
 #start button:hover {
     background-color: #4DFFE6;
     cursor: pointer;
+    transition: background-color 0.3s ease-in;
 }
 
 .isHidden {
