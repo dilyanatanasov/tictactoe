@@ -7,3 +7,5 @@ Used:
 
 
 ![Alt Text](https://media.giphy.com/media/CwjTnYAe16zqzgKkty/giphy.gif)
+
+***[Play Here!](https://dilyanatanasov.github.io/tictactoe/)***
