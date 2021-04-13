@@ -1,11 +1,13 @@
 let options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-let marker = true;
-let userStarts = true;
-let userWins = 0;
 
+let userStarts = true;
 let initRobot = true;
-let robotWins = 0;
 let robotPicks = false;
+let marker = true;
+
+let userWins = 0;
+let robotWins = 0;
+
 
 let x1 = "";
 let x2 = "";
@@ -39,6 +41,19 @@ const updateFieldSpots = () => {
     x9 = (document.getElementById("9").innerText) ? document.getElementById("9").innerText : "";
 };
 
+const getOptions = () => {
+    return [
+        {"1": x1, "2": x2, "3": x3},
+        {"4": x4, "5": x5, "7": x6},
+        {"7": x7, "8": x8, "9": x9},
+        {"1": x1, "4": x4, "7": x7},
+        {"2": x2, "5": x5, "8": x8},
+        {"3": x3, "6": x6, "9": x9},
+        {"1": x1, "5": x5, "9": x9},
+        {"3": x3, "5": x5, "7": x7}
+    ];
+};
+
 const haveIWon = () => {
     updateFieldSpots();
 
@@ -67,7 +82,7 @@ const haveIWon = () => {
 const completed = () => {
     return (
         x1 !== "" &&
-        x2!== "" &&
+        x2 !== "" &&
         x3 !== "" &&
         x4 !== "" &&
         x5 !== "" &&
@@ -81,26 +96,8 @@ const completed = () => {
 const findBestSpot = () => {
     updateFieldSpots();
 
-    const optionsForDefend = [
-        {"1": x1, "2": x2, "3": x3},
-        {"4": x4, "5": x5, "7": x6},
-        {"7": x7, "8": x8, "9": x9},
-        {"1": x1, "4": x4, "7": x7},
-        {"2": x2, "5": x5, "8": x8},
-        {"3": x3, "6": x6, "9": x9},
-        {"1": x1, "5": x5, "9": x9},
-        {"3": x3, "5": x5, "7": x7}
-    ];
-    const optionsForAttack = [
-        {"1": x1, "2": x2, "3": x3},
-        {"4": x4, "5": x5, "7": x6},
-        {"7": x7, "8": x8, "9": x9},
-        {"1": x1, "4": x4, "7": x7},
-        {"2": x2, "5": x5, "8": x8},
-        {"3": x3, "6": x6, "9": x9},
-        {"1": x1, "5": x5, "9": x9},
-        {"3": x3, "5": x5, "7": x7}
-    ];
+    const optionsForDefend = getOptions();
+    const optionsForAttack = getOptions();
 
     for (let row of optionsForDefend) {
         Object.entries(row).map((element) => {
@@ -141,18 +138,9 @@ const findBestSpot = () => {
 
 const findIfWon = (playerSymbol) => {
     updateFieldSpots();
-    const array = [
-        {"1": x1, "2": x2, "3": x3},
-        {"4": x4, "5": x5, "7": x6},
-        {"7": x7, "8": x8, "9": x9},
-        {"1": x1, "4": x4, "7": x7},
-        {"2": x2, "5": x5, "8": x8},
-        {"3": x3, "6": x6, "9": x9},
-        {"1": x1, "5": x5, "9": x9},
-        {"3": x3, "5": x5, "7": x7}
-    ];
+    const allOptions = getOptions();
 
-    for (let row of array) {
+    for (let row of allOptions) {
         Object.entries(row).map((element) => {
             if (element[1] === playerSymbol) {
                 delete row[element[0]];
@@ -160,7 +148,7 @@ const findIfWon = (playerSymbol) => {
         })
     }
 
-    const threes = array.filter((element) => {
+    const threes = allOptions.filter((element) => {
         if (Object.keys(element).length === 0) {
             return Object.keys(element);
         }
@@ -191,6 +179,7 @@ const reset = () => {
     options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
     marker = true;
     initRobot = true;
+    userStarts = !userStarts;
     play();
 };
 
@@ -288,6 +277,7 @@ const play = () => {
     document.getElementById("toggle_checkbox").onclick = () => {
         userStarts = !userStarts;
     };
+
     document.getElementById("begin").onclick = () => {
         document.getElementById("start").classList.add("isHidden");
         play();
