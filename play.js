@@ -179,7 +179,7 @@ const reset = () => {
     options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
     marker = true;
     initRobot = true;
-    userStarts = !userStarts;
+    changeOrder();
     play();
 };
 
@@ -248,6 +248,25 @@ const finish = () => {
     }
 };
 
+const hasScore = () => {
+    return (userWins || robotWins)
+};
+
+const markWhoStarts = () => {
+    if (userStarts) {
+        document.getElementById("user").style.color = "aquamarine";
+        document.getElementById("robot").style.color = "black";
+    } else {
+        document.getElementById("user").style.color = "black";
+        document.getElementById("robot").style.color = "aquamarine";
+    }
+};
+
+const changeOrder = () => {
+    userStarts = !userStarts;
+    if (hasScore()) markWhoStarts()
+};
+
 const play = () => {
     if (userStarts === false) {
         marker = false;
@@ -275,11 +294,12 @@ const play = () => {
 
 (() => {
     document.getElementById("toggle_checkbox").onclick = () => {
-        userStarts = !userStarts;
+        changeOrder();
     };
 
     document.getElementById("begin").onclick = () => {
         document.getElementById("start").classList.add("isHidden");
+        markWhoStarts();
         play();
     }
 })();
