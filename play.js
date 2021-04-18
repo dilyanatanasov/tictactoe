@@ -8,7 +8,6 @@ let marker = true;
 let userWins = 0;
 let robotWins = 0;
 
-
 let x1 = "";
 let x2 = "";
 let x3 = "";
@@ -54,6 +53,50 @@ const getOptions = () => {
     ];
 };
 
+const getOptionsForDefend = () => {
+    const options = getOptions();
+
+    for (let row of options) {
+        Object.entries(row).map((element) => {
+            if (element[1] === "x") {
+                delete row[element[0]];
+            }
+        })
+    }
+
+    return options;
+};
+
+const getPositionForDefend = () => {
+    return getOptionsForDefend().filter((element) => {
+        if (Object.keys(element).length === 1 && Object.values(element)[0] === "") {
+            return Object.keys(element);
+        }
+    });
+};
+
+const getOptionsForAttack = () => {
+    const options = getOptions();
+
+    for (let row of options) {
+        Object.entries(row).map((element) => {
+            if (element[1] === "o") {
+                delete row[element[0]];
+            }
+        })
+    }
+
+    return options;
+};
+
+const getPositionForAttack = () => {
+    return getOptionsForAttack().filter((element) => {
+        if (Object.keys(element).length === 1 && Object.values(element)[0] === "") {
+            return Object.keys(element);
+        }
+    });
+};
+
 const haveIWon = () => {
     updateFieldSpots();
 
@@ -96,36 +139,8 @@ const completed = () => {
 const findBestSpot = () => {
     updateFieldSpots();
 
-    const optionsForDefend = getOptions();
-    const optionsForAttack = getOptions();
-
-    for (let row of optionsForDefend) {
-        Object.entries(row).map((element) => {
-            if (element[1] === "x") {
-                delete row[element[0]];
-            }
-        })
-    }
-
-    const positionForDefend = optionsForDefend.filter((element) => {
-        if (Object.keys(element).length === 1 && Object.values(element)[0] === "") {
-            return Object.keys(element);
-        }
-    });
-
-    for (let row of optionsForAttack) {
-        Object.entries(row).map((element) => {
-            if (element[1] === "o") {
-                delete row[element[0]];
-            }
-        })
-    }
-
-    const positionForAttack = optionsForAttack.filter((element) => {
-        if (Object.keys(element).length === 1 && Object.values(element)[0] === "") {
-            return Object.keys(element);
-        }
-    });
+    const positionForDefend = getPositionForDefend();
+    const positionForAttack = getPositionForAttack();
 
     if (positionForAttack.length > 0 && Object.keys(positionForAttack[0]) > 0) {
         return Object.keys(positionForAttack[0])[0];
@@ -248,10 +263,6 @@ const finish = () => {
     }
 };
 
-const hasScore = () => {
-    return (userWins || robotWins)
-};
-
 const markWhoStarts = () => {
     if (userStarts) {
         document.getElementById("user").style.color = "aquamarine";
@@ -264,7 +275,6 @@ const markWhoStarts = () => {
 
 const changeOrder = () => {
     userStarts = !userStarts;
-    if (hasScore()) markWhoStarts()
 };
 
 const play = () => {
