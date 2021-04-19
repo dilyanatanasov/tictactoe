@@ -293,7 +293,11 @@ const endGame = (winner) => {
     document.getElementById("robot").innerText = `${userWins} USER`;
     document.getElementById("robot").innerText = `ROBOT ${robotWins}`;
     roundsPassed = 0;
-    document.getElementById("reset").onclick = () => play();
+    document.getElementById("reset").onclick = () => {
+        document.getElementById("finish").classList.remove("finish");
+        document.getElementById("finish").classList.add("isHidden");
+        play();
+    }
 };
 
 const markWhoStarts = () => {
