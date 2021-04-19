@@ -1,3 +1,4 @@
+const maxRounds = 3;
 let options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
 let userStarts = true;
@@ -7,6 +8,8 @@ let marker = true;
 
 let userWins = 0;
 let robotWins = 0;
+let roundsPassed = 0;
+let repeat = false;
 
 let x1 = "";
 let x2 = "";
@@ -172,10 +175,20 @@ const findIfWon = (playerSymbol) => {
 };
 
 const win = (winner) => {
-    document.getElementById("message").innerText = winner;
-    document.getElementById("finish").classList.remove("isHidden");
-    document.getElementById("finish").classList.add("finish");
     blockClicks();
+    if (
+        roundsPassed < maxRounds &&
+        userWins <= 1 &&
+        robotWins <= 1 &&
+        !repeat
+    ) {
+        roundsPassed++;
+        reset();
+    } else if (repeat) {
+        reset();
+    } else {
+        endGame(winner);
+    }
 };
 
 const blockClicks = () => {
@@ -189,11 +202,10 @@ const reset = () => {
     for (let i = 1; i < 10; i++) {
         document.getElementById(i.toString()).innerText = "";
     }
-    document.getElementById("finish").classList.remove("finish");
-    document.getElementById("finish").classList.add("isHidden");
     options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
     marker = true;
     initRobot = true;
+    console.log(`Here ${repeat}`);
     changeOrder();
     play();
 };
@@ -246,7 +258,7 @@ const robot = () => {
         }
 
         robotPicks = false;
-    }, 1000);
+    }, 2500);
 };
 
 const finish = () => {
@@ -259,8 +271,29 @@ const finish = () => {
         document.getElementById("robot").innerText = `ROBOT ${robotWins}`;
         win("Robot won!")
     } else {
+        repeat = true;
         win("It's a draw!");
     }
+};
+
+const endGame = (winner) => {
+    for (let i = 1; i < 10; i++) {
+        document.getElementById(i.toString()).innerText = "";
+    }
+    document.getElementById("message").innerText = winner;
+    document.getElementById("finish").classList.remove("isHidden");
+    document.getElementById("finish").classList.add("finish");
+    document.getElementById("toggle").classList.remove("isHidden");
+    document.getElementById("question").classList.remove("isHidden");
+    options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    marker = true;
+    initRobot = true;
+    userWins = 0;
+    robotWins = 0;
+    document.getElementById("robot").innerText = `${userWins} USER`;
+    document.getElementById("robot").innerText = `ROBOT ${robotWins}`;
+    roundsPassed = 0;
+    document.getElementById("reset").onclick = () => play();
 };
 
 const markWhoStarts = () => {
@@ -275,10 +308,54 @@ const markWhoStarts = () => {
 
 const changeOrder = () => {
     userStarts = !userStarts;
+    markWhoStarts();
+};
+
+const showStageMessage = (message) => {
+    document.getElementById("stage").innerText = message;
+    document.getElementById("stage").classList.contains("zoomOut");
+    if (document.getElementById("stage").classList.contains("zoomOut")) {
+        document.getElementById("stage").classList.remove("zoomOut");
+    }
+    document.getElementById("stage").style.zIndex = "1";
+    document.getElementById("stage").classList.add("zoomIn");
+    setTimeout(() => {
+        document.getElementById("stage").classList.remove("zoomIn");
+        document.getElementById("stage").classList.add("zoomOut");
+        document.getElementById("stage").style.zIndex = "-1";
+    }, 2000);
+};
+
+const announceRound = () => {
+    if (repeat) {
+        showStageMessage("Replay");
+        repeat = false;
+        return;
+    }
+
+    switch (roundsPassed + 1) {
+        case 1:
+            showStageMessage("First Round");
+            break;
+        case 2:
+            showStageMessage("Second Round");
+            break;
+        case 3:
+            showStageMessage("Final Round");
+            break;
+    }
+};
+
+const blockChangeOfRow = () => {
+    document.getElementById("toggle").classList.add("isHidden");
+    document.getElementById("question").classList.add("isHidden");
 };
 
 const play = () => {
-    if (userStarts === false) {
+    announceRound();
+    blockChangeOfRow();
+
+    if (!userStarts) {
         marker = false;
         robotPicks = true;
         robot();
@@ -299,7 +376,6 @@ const play = () => {
             }
         });
     }
-    document.getElementById("reset").onclick = () => reset();
 };
 
 (() => {

@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/play.js" beforeDir="false" afterPath="$PROJECT_DIR$/play.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +59,7 @@
       <workItem from="1617442736731" duration="1865000" />
       <workItem from="1617902433248" duration="23000" />
       <workItem from="1618336130613" duration="3276000" />
-      <workItem from="1618737219409" duration="915000" />
+      <workItem from="1618737219409" duration="10159000" />
     </task>
     <servers />
   </component>
@@ -66,9 +67,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="168" y="127" width="1652" height="853" key="DiffContextDialog" timestamp="1617373406435">
-      <screen x="68" y="27" width="1852" height="1053" />
+    <state x="104" y="1183" width="1713" height="875" key="DiffContextDialog" timestamp="1618856312147">
+      <screen x="0" y="1080" width="1920" height="1080" />
     </state>
+    <state x="104" y="1183" width="1713" height="875" key="DiffContextDialog/0.1080.1920.1080/68.0.1852.1080@0.1080.1920.1080" timestamp="1618856312147" />
     <state x="168" y="127" width="1652" height="853" key="DiffContextDialog/68.27.1852.1053@68.27.1852.1053" timestamp="1617373406435" />
     <state x="743" y="298" width="424" height="491" key="FileChooserDialogImpl" timestamp="1617902454378">
       <screen x="68" y="0" width="1852" height="1080" />
