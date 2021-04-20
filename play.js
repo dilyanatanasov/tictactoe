@@ -281,6 +281,7 @@ const endGame = (winner) => {
         document.getElementById(i.toString()).innerText = "";
     }
     document.getElementById("message").innerText = winner;
+    document.getElementById("message").classList.add("zoomIn");
     document.getElementById("finish").classList.remove("isHidden");
     document.getElementById("finish").classList.add("finish");
     document.getElementById("toggle").classList.remove("isHidden");
@@ -294,6 +295,7 @@ const endGame = (winner) => {
     document.getElementById("robot").innerText = `ROBOT ${robotWins}`;
     roundsPassed = 0;
     document.getElementById("reset").onclick = () => {
+        document.getElementById("message").classList.remove("zoomIn");
         document.getElementById("finish").classList.remove("finish");
         document.getElementById("finish").classList.add("isHidden");
         play();
