@@ -304,9 +304,11 @@ const markWhoStarts = () => {
     if (userStarts) {
         document.getElementById("user").style.color = "aquamarine";
         document.getElementById("robot").style.color = "black";
+        document.getElementById("toggle_checkbox").checked = false;
     } else {
         document.getElementById("user").style.color = "black";
         document.getElementById("robot").style.color = "aquamarine";
+        document.getElementById("toggle_checkbox").checked = true;
     }
 };
 
