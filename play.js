@@ -290,7 +290,7 @@ const endGame = (winner) => {
     initRobot = true;
     userWins = 0;
     robotWins = 0;
-    document.getElementById("robot").innerText = `${userWins} USER`;
+    document.getElementById("user").innerText = `${userWins} USER`;
     document.getElementById("robot").innerText = `ROBOT ${robotWins}`;
     roundsPassed = 0;
     document.getElementById("reset").onclick = () => {
