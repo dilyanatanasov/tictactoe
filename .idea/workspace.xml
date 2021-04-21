@@ -32,7 +32,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Scavasoft/docebo/docebo-content" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -60,22 +60,12 @@
       <workItem from="1617902433248" duration="23000" />
       <workItem from="1618336130613" duration="3276000" />
       <workItem from="1618737219409" duration="11896000" />
-      <workItem from="1618926772613" duration="4004000" />
+      <workItem from="1618926772613" duration="4329000" />
+      <workItem from="1618988309111" duration="36000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="104" y="1183" width="1713" height="875" key="DiffContextDialog" timestamp="1618856312147">
-      <screen x="0" y="1080" width="1920" height="1080" />
-    </state>
-    <state x="104" y="1183" width="1713" height="875" key="DiffContextDialog/0.1080.1920.1080/68.0.1852.1080@0.1080.1920.1080" timestamp="1618856312147" />
-    <state x="168" y="127" width="1652" height="853" key="DiffContextDialog/68.27.1852.1053@68.27.1852.1053" timestamp="1617373406435" />
-    <state x="743" y="298" width="424" height="491" key="FileChooserDialogImpl" timestamp="1617902454378">
-      <screen x="68" y="0" width="1852" height="1080" />
-    </state>
-    <state x="743" y="298" width="424" height="491" key="FileChooserDialogImpl/0.1080.1920.1080/68.0.1852.1080@68.0.1852.1080" timestamp="1617902454378" />
   </component>
 </project>

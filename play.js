@@ -258,7 +258,7 @@ const robot = () => {
         }
 
         robotPicks = false;
-    }, 2500);
+    }, (document.getElementById("stage").classList.contains("zoomIn")) ? 2500 : 1000);
 };
 
 const finish = () => {
@@ -276,24 +276,30 @@ const finish = () => {
     }
 };
 
-const endGame = (winner) => {
-    for (let i = 1; i < 10; i++) {
-        document.getElementById(i.toString()).innerText = "";
-    }
+const displayWinner = (winner) => {
     document.getElementById("message").innerText = winner;
     document.getElementById("message").classList.add("zoomIn");
     document.getElementById("finish").classList.remove("isHidden");
     document.getElementById("finish").classList.add("finish");
     document.getElementById("toggle").classList.remove("isHidden");
     document.getElementById("question").classList.remove("isHidden");
+}
+
+const endGame = (winner) => {
+    for (let i = 1; i < 10; i++) {
+        document.getElementById(i.toString()).innerText = "";
+    }
     options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
     marker = true;
     initRobot = true;
     userWins = 0;
     robotWins = 0;
+    roundsPassed = 0;
+
+    displayWinner(winner);
     document.getElementById("user").innerText = `${userWins} USER`;
     document.getElementById("robot").innerText = `ROBOT ${robotWins}`;
-    roundsPassed = 0;
+
     document.getElementById("reset").onclick = () => {
         document.getElementById("message").classList.remove("zoomIn");
         document.getElementById("finish").classList.remove("finish");
@@ -387,13 +393,14 @@ const play = () => {
 };
 
 (() => {
+    markWhoStarts();
+
     document.getElementById("toggle_checkbox").onclick = () => {
         changeOrder();
     };
 
     document.getElementById("begin").onclick = () => {
         document.getElementById("start").classList.add("isHidden");
-        markWhoStarts();
         play();
     }
 })();
