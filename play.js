@@ -292,15 +292,14 @@ const endGame = (winner) => {
     options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
     marker = true;
     initRobot = true;
-    userWins = 0;
-    robotWins = 0;
     roundsPassed = 0;
-
     displayWinner(winner);
-    document.getElementById("user").innerText = `${userWins} USER`;
-    document.getElementById("robot").innerText = `ROBOT ${robotWins}`;
 
     document.getElementById("reset").onclick = () => {
+        userWins = 0;
+        robotWins = 0;
+        document.getElementById("user").innerText = `${userWins} USER`;
+        document.getElementById("robot").innerText = `ROBOT ${robotWins}`;
         document.getElementById("message").classList.remove("zoomIn");
         document.getElementById("finish").classList.remove("finish");
         document.getElementById("finish").classList.add("isHidden");
@@ -336,7 +335,9 @@ const showStageMessage = (message) => {
     setTimeout(() => {
         document.getElementById("stage").classList.remove("zoomIn");
         document.getElementById("stage").classList.add("zoomOut");
-        document.getElementById("stage").style.zIndex = "-1";
+        setTimeout(() => {
+            document.getElementById("stage").style.zIndex = "-1";
+        }, 1000)
     }, 2000);
 };
 
