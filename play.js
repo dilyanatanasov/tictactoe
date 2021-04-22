@@ -144,7 +144,6 @@ const findBestSpot = () => {
 
     const positionForDefend = getPositionForDefend();
     const positionForAttack = getPositionForAttack();
-
     if (positionForAttack.length > 0 && Object.keys(positionForAttack[0]) > 0) {
         return Object.keys(positionForAttack[0])[0];
     } else if (positionForDefend.length > 0 && Object.keys(positionForDefend[0]) > 0) {
@@ -205,7 +204,6 @@ const reset = () => {
     options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
     marker = true;
     initRobot = true;
-    console.log(`Here ${repeat}`);
     changeOrder();
     play();
 };
