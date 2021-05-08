@@ -1,5 +1,6 @@
 const maxRounds = 3;
 let options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+let pattern = [];
 
 let userStarts = true;
 let initRobot = true;
@@ -29,6 +30,10 @@ const showSymbol = (symbol, elementId) => {
 
 const isAvailableOption = (option) => {
     return (options.includes(option) && document.getElementById(option).innerText === "");
+};
+
+const isTakenByUser = (option) => {
+    return (document.getElementById(option).innerText === "x");
 };
 
 const updateFieldSpots = () => {
@@ -144,10 +149,33 @@ const findBestSpot = () => {
 
     const positionForDefend = getPositionForDefend();
     const positionForAttack = getPositionForAttack();
+    if (pattern.length === 0) {
+        getPattern();
+    }
+
     if (positionForAttack.length > 0 && Object.keys(positionForAttack[0]) > 0) {
         return Object.keys(positionForAttack[0])[0];
     } else if (positionForDefend.length > 0 && Object.keys(positionForDefend[0]) > 0) {
         return Object.keys(positionForDefend[0])[0];
+    } else if (pattern.length > 0) {
+        if (patternIsApplicable()) {
+            for (let spot of pattern) {
+                if (isAvailableOption(spot)) {
+                    return spot.toString();
+                }
+            }
+        }
+
+        getPattern();
+        if (pattern.length === 0) {
+            return getRandomOption();
+        } else {
+            for (let spot of pattern) {
+                if (isAvailableOption(spot)) {
+                    return spot;
+                }
+            }
+        }
     } else {
         return false;
     }
@@ -204,22 +232,13 @@ const reset = () => {
     options = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
     marker = true;
     initRobot = true;
+    pattern = [];
     changeOrder();
     play();
 };
 
 const pickPosition = () => {
-    if (initRobot) {
-        initRobot = false;
-        return getRandomOption();
-    } else {
-        const robotPick = findBestSpot();
-        if (!hasPicked(robotPick) || !isAvailableOption(robotPick)) {
-            return getRandomOption();
-        }
-
-        return robotPick
-    }
+    return findBestSpot();
 };
 
 const hasPicked = (robotPick) => {
@@ -389,6 +408,78 @@ const play = () => {
             }
         });
     }
+};
+
+const getTrianglePattern = () => {
+    let pattern = [];
+    if (empty(x1) && empty(x7) && empty(x9)) {
+        pattern = ["1", "7", "9"];
+    } else if (empty(x7) && empty(x9) && empty(x3)) {
+        pattern = ["5", "1", "3"];
+    } else if (empty(x9) && empty(x3) && empty(x1)) {
+        pattern = ["9", "3", "1"];
+    } else if (empty(x3) && empty(x1) && empty(x7)) {
+        pattern = ["3", "1", "7"];
+    }
+    return pattern;
+};
+
+const getFivePattern = () => {
+    let pattern = [];
+    if (empty(x5)) {
+        if (empty(x1) && empty(x7)) {
+            pattern = ["5", "1", "7"];
+        } else if (empty(x1) && empty(x3)) {
+            pattern = ["5", "1", "3"];
+        } else if (empty(x3) && empty(x9)) {
+            pattern = ["5", "3", "9"];
+        } else if (empty(x9) && empty(x7)) {
+            pattern = ["5", "9", "7"];
+        }
+    }
+    return pattern;
+};
+
+const getLinePattern = () => {
+    let pattern = [];
+    if (empty(x1) && empty(x2) && empty(x3)) {
+        pattern = ["1", "2", "3"];
+    } else if (empty(x4) && empty(x5) && empty(x6)) {
+        pattern = ["4", "5", "6"];
+    } else if (empty(x7) && empty(x8) && empty(x9)) {
+        pattern = ["7", "8", "9"];
+    } else if (empty(x1) && empty(x5) && empty(x9)) {
+        pattern = ["1", "5", "9"];
+    } else if (empty(x3) && empty(x5) && empty(x7)) {
+        pattern = ["3", "5", "7"];
+    }
+    return pattern;
+};
+
+const getPattern = () => {
+  const trianglePattern = getTrianglePattern();
+  const fivePattern = getFivePattern();
+  const linePattern = getLinePattern();
+  if (trianglePattern.length > 0) {
+      pattern = trianglePattern;
+  } else if (fivePattern.length > 0) {
+      pattern = fivePattern;
+  } else if (linePattern.length > 0) {
+      pattern = linePattern;
+  }
+};
+
+const patternIsApplicable = () => {
+    for (const option of pattern) {
+        if (!isAvailableOption(option) && isTakenByUser(option)) {
+            return false;
+        }
+    }
+    return true;
+};
+
+const empty = (box) => {
+    return (box === "" || box === "o");
 };
 
 (() => {
