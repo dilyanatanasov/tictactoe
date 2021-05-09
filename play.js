@@ -167,7 +167,7 @@ const findBestSpot = () => {
         }
 
         getPattern();
-        if (pattern.length === 0) {
+        if (pattern.length === 0 && !patternIsApplicable()) {
             return getRandomOption();
         } else {
             for (let spot of pattern) {
@@ -467,6 +467,8 @@ const getPattern = () => {
   } else if (linePattern.length > 0) {
       pattern = linePattern;
   }
+
+  console.log({pattern})
 };
 
 const patternIsApplicable = () => {

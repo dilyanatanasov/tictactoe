@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fbaa85eb-2bc7-40d3-aaca-0dc35e715800" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/play.js" beforeDir="false" afterPath="$PROJECT_DIR$/play.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,13 +65,18 @@
       <workItem from="1618988309111" duration="36000" />
       <workItem from="1618993106271" duration="442000" />
       <workItem from="1619021828159" duration="866000" />
+      <workItem from="1620570652934" duration="77000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="168" y="127" width="1652" height="853" key="DiffContextDialog" timestamp="1620571103812">
+      <screen x="68" y="27" width="1852" height="1053" />
+    </state>
+    <state x="168" y="127" width="1652" height="853" key="DiffContextDialog/68.27.1852.1053@68.27.1852.1053" timestamp="1620571103812" />
     <state x="642" y="162" width="863" height="783" key="find.popup" timestamp="1620502425503">
       <screen x="68" y="27" width="1852" height="1053" />
     </state>
