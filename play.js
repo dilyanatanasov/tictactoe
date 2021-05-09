@@ -478,6 +478,12 @@ const patternIsApplicable = () => {
     return true;
 };
 
+const patternCanWin = (pattern) => {
+    if (patternIsApplicable()) {
+
+    }
+};
+
 const empty = (box) => {
     return (box === "" || box === "o");
 };
