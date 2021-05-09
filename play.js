@@ -367,10 +367,10 @@ const announceRound = () => {
 
     switch (roundsPassed + 1) {
         case 1:
-            showStageMessage("First Round");
+            showStageMessage("Round One");
             break;
         case 2:
-            showStageMessage("Second Round");
+            showStageMessage("Round Two");
             break;
         case 3:
             showStageMessage("Final Round");
